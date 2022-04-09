@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="create_inventory_wizard_from" model="ir.ui.view">
+            <field name="name">create.inventory.wizard</field>
+            <field name="model">inventory.wizard</field>
+            <field name="arch" type="xml">
+                <form string="POS popup ">
+                    <group>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                        <field name="user_id"/>
+                        <field name="config_id"/>
+
+                    </group>
+                    <footer>
+                        <button name="generate_report_xlsx" string="Print" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+<record id="action_inventory_menu_popup" model="ir.actions.act_window">
+            <field name="name">POS Popup</field>
+            <field name="res_model">inventory.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_inventory_popup"
+                  name="POS Popup"
+                  parent="point_of_sale.menu_point_rep"
+                  action="action_inventory_menu_popup"/>
+</odoo>

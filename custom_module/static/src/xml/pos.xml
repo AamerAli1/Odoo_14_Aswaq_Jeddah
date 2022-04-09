@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<templates id="pos_product_bundle_pack_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="after">
+            <br/>
+            <br/>
+            <div style="text-align: center;" class="sltech-pos-receipt-order-data">
+                <t t-esc="receiptEnv.order.sltech_global_name"/>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

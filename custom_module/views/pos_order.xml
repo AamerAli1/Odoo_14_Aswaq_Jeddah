@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="custom_pos_order_extended_form_view">
+            <field name="name">pos.order.form.extended.view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sltech_global_name"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="custom_pos_order_extended_tree_view">
+            <field name="name">pos.order.tree.extended.view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="sltech_global_name"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_module
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-04 09:02+0000\n"
+"PO-Revision-Date: 2022-04-04 09:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_module
+#: model:ir.model.fields,field_description:custom_module.field_pos_order__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: custom_module
+#: model:ir.model.fields,field_description:custom_module.field_pos_order__sltech_global_name
+msgid "Global Sequence"
+msgstr "التسلسل العالمي"
+
+#. module: custom_module
+#: model:ir.model.fields,field_description:custom_module.field_pos_order__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: custom_module
+#: model:ir.model.fields,field_description:custom_module.field_pos_order____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: custom_module
+#: code:addons/custom_module/models/pos_order.py:0
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: custom_module
+#: model:ir.model,name:custom_module.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "أوامر نقطة البيع"
+
+#. module: custom_module
+#. openerp-web
+#: code:addons/custom_module/static/src/js/Screen.js:0
+#, python-format
+msgid "Remaining unsynced orders"
+msgstr ""
+
+#. module: custom_module
+#. openerp-web
+#: code:addons/custom_module/static/src/js/Screen.js:0
+#, python-format
+msgid "There are unsynced orders. Do you want to sync these orders?"
+msgstr ""
