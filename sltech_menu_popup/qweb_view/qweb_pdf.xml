@@ -12,7 +12,7 @@
                 file="sltech_menu_popup.print_sample_report"
                 attachment_use="False"
                 menu="True"
-                print_report_name="'POS-Report'"/>
+                print_report_name="object._sltech_get_report_filename()"/>
 
 <!--        <report id="sltech_pos_excel_report_invoice_xlsx"-->
 

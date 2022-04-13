@@ -5,5 +5,5 @@
         'wizards/wizards_popup.xml',
          'qweb_view/qweb_pdf.xml',
  ],
- 'depends':['report_xlsx','point_of_sale']
+ 'depends':['report_xlsx','point_of_sale', 'custom_module', 'hr']
  }

@@ -4,7 +4,7 @@
             <field name="name">create.inventory.wizard</field>
             <field name="model">inventory.wizard</field>
             <field name="arch" type="xml">
-                <form string="POS popup ">
+                <form string="Sales Excel Report">
                     <group>
                         <field name="from_date"/>
                         <field name="to_date"/>
@@ -21,14 +21,14 @@
             </field>
         </record>
 <record id="action_inventory_menu_popup" model="ir.actions.act_window">
-            <field name="name">POS Popup</field>
+            <field name="name">Sales Excel Report</field>
             <field name="res_model">inventory.wizard</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
         <menuitem id="menu_inventory_popup"
-                  name="POS Popup"
+                  name="Sales Excel Report"
                   parent="point_of_sale.menu_point_rep"
                   action="action_inventory_menu_popup"/>
 </odoo>

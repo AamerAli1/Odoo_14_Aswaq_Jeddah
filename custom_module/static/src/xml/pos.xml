@@ -6,7 +6,7 @@
             <br/>
             <br/>
             <div style="text-align: center;" class="sltech-pos-receipt-order-data">
-                <t t-esc="receiptEnv.order.sltech_global_name"/>
+        
             </div>
         </xpath>
     </t>

@@ -1,0 +1,1 @@
+Custom POS Receipt with QR

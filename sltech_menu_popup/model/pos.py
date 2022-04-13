@@ -45,7 +45,7 @@ class PartnerXlsxoiu7(models.AbstractModel):
             print(pos_order_ids)
 
 
-
+        self = self.with_context(lang=self.env.user.lang)
         worksheet = workbook.add_worksheet()
         worksheet.set_column('A:A', 20)
         worksheet.set_column('B:B', 32)
@@ -58,28 +58,34 @@ class PartnerXlsxoiu7(models.AbstractModel):
         worksheet.set_column('I:I', 25)
         cell_format = workbook.add_format({'align': 'center', 'bold': 1,'bg_color':'#d8d8d8','border': 1,})
         format1 = workbook.add_format({'border': 1,'align': 'center',})
-        worksheet.merge_range('E1:F1',_('Sales report from {Date beginning } to {date ending}'),cell_format)
+        worksheet.merge_range('E1:F1',_('Sales report from {'+str(obj.from_date)+'} to {'+str(obj.to_date)+'}'),cell_format)
         worksheet.write('A2', _('POS shop name'),cell_format)
-        worksheet.write('B2', _('Order number (global sequence)'),cell_format)
+        worksheet.write('B2', _('Order number'),cell_format)
         worksheet.write('C2', _('Date and time'),cell_format)
-        worksheet.write('D2', _('user'),cell_format)
+        worksheet.write('D2', _('Cashier'),cell_format)
         worksheet.write('E2', _('Product'),cell_format)
-        worksheet.write('F2', _('unit price w/o tax'),cell_format)
-        worksheet.write('G2', _('price after tax'),cell_format)
+        worksheet.write('F2', _('Unit price w/o tax'),cell_format)
+        worksheet.write('G2', _('Price after tax'),cell_format)
         worksheet.write('H2', _('Quantity'),cell_format)
-        worksheet.write('I2', _('Total Price (price * qty)'),cell_format)
+        worksheet.write('I2', _('Total Price'),cell_format)
 
         for order in pos_order_ids:
             for lines in order.lines:
+
+                temp_tax_amt = 0
+                for tx_id in lines.tax_ids_after_fiscal_position:
+                    tax_amt = tx_id.compute_all(lines.price_unit, order.currency_id, lines.qty, product=lines.product_id)
+                    temp_tax_amt += sum(tax.get('amount', 0.0) for tax in tax_amt['taxes'])
+
                 worksheet.write('A%s' % line_index, (order.config_id.name or ''),format1)
-                worksheet.write('B%s' % line_index, (order.name or ''),format1)
+                worksheet.write('B%s' % line_index, (order.sltech_global_name or ''),format1)
                 worksheet.write('C%s' % line_index, (str(order.date_order) or ''),format1)
-                worksheet.write('D%s' % line_index, (order.user_id.name or ''),format1)
+                worksheet.write('D%s' % line_index, (order.employee_id.name or ''),format1)
                 worksheet.write('E%s' % line_index, (lines.full_product_name or ''),format1)
-                worksheet.write('F%s' % line_index, (''))
-                worksheet.write('G%s' % line_index, (lines.price_subtotal or ''),format1)
-                worksheet.write('H%s' % line_index, (lines.qty or ''),format1)
-                worksheet.write('I%s' % line_index, (lines.price_subtotal_incl or ''),format1)
+                worksheet.write('F%s' % line_index, (lines.price_unit or '0'),format1)
+                worksheet.write('G%s' % line_index, (temp_tax_amt+lines.price_unit or '0'),format1)
+                worksheet.write('H%s' % line_index, (lines.qty or '0'),format1)
+                worksheet.write('I%s' % line_index, (lines.price_subtotal_incl or '0'),format1)
                 line_index +=1
         amount_tax = sum(pos_order_ids.mapped('amount_tax'))
         amount_total = sum(pos_order_ids.mapped('amount_total'))

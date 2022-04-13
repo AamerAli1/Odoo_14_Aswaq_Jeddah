@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_product_bundle_pack_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//img[hasclass('pos-receipt-logo')]" position="after">
+            <table style="width: 100%">
+            
+                <tr>
+                    <td style="text-align: center;">
+                        <div>
+                            جدة-حي الصفا-شارع وديع البستاني- رقم المبنى ٥١١٢
+                        </div>
+                    </td>
+                </tr>
+                <tr t-if="receipt.company.phone">
+                    <td style="text-align: center;">
+                        <div>
+                            <t t-esc="receipt.company.phone"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </xpath>
+
+        <xpath expr="//t[@t-if='receipt.is_gcc_country']" position="replace">
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="replace">
+            <t t-if="receipt.is_gcc_country">
+                <div class="pos-receipt-header">
+                    <span id="title_english" t-translation="off">Simplified Tax Invoice</span>
+                </div>
+                <div class="pos-receipt-header">
+                    <span id="title_arabic" t-translation="off">فاتورة ضريبة مبسطة</span>
+                </div>
+            </t>
+            <div class="pos-receipt-contact">
+                <table style="width: 100%;">
+
+                    <tr t-if="receipt.company.vat">
+                        <td style="text-align: left">
+                            <div>
+                                VAT:
+                            </div>
+                        </td>
+                        <td>
+                            <div style = "font-weight: bold;">
+                                <t t-esc="receipt.company.vat"/>
+                            </div>
+                        </td>
+                        <td style="text-align: right">
+                            <div>
+                                الرقم الضريبي
+                            </div>
+                        </td>
+                    </tr>
+                    <tr t-if="receipt.company.company_registry">
+                        <td style="text-align: left">
+                            <div>
+                                CR:
+                            </div>
+                        </td>
+                        <td>
+                            <div style = "font-weight: bold;">
+                                <t t-esc="receipt.company.company_registry"/>
+                            </div>
+                        </td>
+                        <td style="text-align: right">
+                            <div>
+                                سجل الشركة
+                            </div>
+                        </td>
+                    </tr>
+                    <tr t-if="receipt.cashier">
+                        <td style="text-align: left">
+                            <div class="cashier">
+                                Cashier:
+                            </div>
+                        </td>
+                        <td>
+                            <div style = "font-weight: bold;">
+                                <t t-esc="receipt.cashier"/>
+                            </div>
+                        </td>
+                        <td style="text-align: right">
+                            <div>
+                                أمين الصندوق
+                            </div>
+                        </td>
+                    </tr>
+                    <tr t-if="receiptEnv.order.pos.config.name">
+                        <td style="text-align: left">
+                            <div class="cashier">
+                                Shop Name:
+                            </div>
+                        </td>
+                        <td>
+                            <div style = "font-weight: bold;">
+                                <t t-esc="receiptEnv.order.pos.config.name"/>
+                            </div>
+                        </td>
+                        <td style="text-align: right">
+                            <div>
+                                اسم المحل
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <div>
+                                Invoice No:
+                            </div>
+                        </td>
+                        <td>
+                            <div style = "font-weight: bold;">
+                            <t t-esc="receiptEnv.order.sltech_global_name" /></div>
+                        </td>
+                        <td style="text-align: right">
+                            <div>
+                                رقم الفاتورة
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <div>
+                                Invoice Date:
+                            </div>
+                        </td>
+                        <td>
+                            <div style = "font-weight: bold;">
+                            <t t-esc="receipt.date.localestring" /></div>
+                        </td>
+                        <td style="text-align: right">
+                            <div>
+                                تاريخ الفاتورة
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+
+              <xpath expr="//div[hasclass('orderlines')]" position="replace">
+            <div class="orderlines">
+                <table class='receipt-orderlines'>
+                    <colgroup>
+                        <col width='30%' />
+                        <col width='15%' />
+                        <col width='20%' />
+                        <col width='30%' />
+                    </colgroup>
+                    <tr style="border-bottom: 1px dashed black;border-top: 1px dashed black;">
+                        <th style='text-align:left'>Item <br/> الصنف </th>
+                        <th style='text-align:center'>Qty <br/> الكمية</th>
+                        <th style='text-align:center'>U.P <br/> سعر الوحدة</th>
+                        <th style='text-align:center'>P.VAT السعر <br/> مع الضريبة </th>
+                    </tr>
+                    <tr t-foreach="orderlines" t-as="orderline" t-key="orderline.id">
+                        <td>
+                            <t t-esc="orderline.get_product().display_name"/>
+                             <t t-if="orderline.get_discount() > 0">
+                                <div class="pos-disc-font">
+                                    With a <t t-esc="orderline.get_discount()"/>% discount
+                                </div>
+                            </t>
+                        </td>
+                        <td style='text-align:center'>
+                            <t t-esc="orderline.get_quantity()"/>
+                        </td>
+                        <td style='text-align:center'>
+                            <t t-esc="env.pos.format_currency_no_symbol(orderline.get_unit_display_price())"></t>
+                        </td >
+                        <td style='text-align:right'>
+                            <t t-esc="env.pos.format_currency_no_symbol(orderline.get_price_with_tax())"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-if='!isTaxIncluded']" position="replace">
+            <div class="pos-receipt-right-align">--------</div>
+            <br/>
+            <div>
+                <div class="pos-receipt-left-align" style="float:left;margin-bottom: 10px;">
+                    <div>Total Taxable (Excluding VAT)</div>
+                    <div> الاجمالي الخاضع للضريبة</div>
+                </div>
+                <span t-esc="env.pos.format_currency(receipt.subtotal)" class="pos-receipt-right-align" style="margin-top:5px"/>
+                <br/>
+            </div>
+            <t t-foreach="receipt.tax_details" t-as="tax" t-key="tax.name">
+                <div style="margin-top: 20px;margin-bottom: 20px;">
+                     <div class="pos-receipt-left-align" style="float:left">
+                        <div>Total VAT</div>
+                        <div>ضريبة القيمة المضافة</div>
+                     </div>
+                    <div class="pos-receipt-right-align" style="margin-top:5px">
+                        <span t-esc='env.pos.format_currency(tax.amount)' />
+                    </div>
+
+                    <br/>
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace">
+            <div class="pos-receipt-amount" style="padding:0px;">
+              <div class="pos-receipt-left-align" style="float:left;margin-bottom: 10px;">
+                    <div>Total Amount</div>
+                    <div>إجمالي المبلغ شامل الضريبة</div>
+              </div>
+                <span t-esc="env.pos.format_currency(receipt.total_with_tax)" class="pos-receipt-right-align" style="margin-top:10px"/>
+                <br/>
+            </div>
+     </xpath>
+
+
+        <xpath expr="//t[@t-foreach='receipt.paymentlines']" position="replace">
+            <span style = "text-align:center">----------------------------------------------------</span>
+         </xpath>
+
+
+        <xpath expr="//div[hasclass('pos-receipt-amount') and hasclass('receipt-change')]" position="attributes">
+            <attribute name="style">display: none</attribute>
+        </xpath>
+
+
+        <xpath expr="//img[@id='qrcode']" position="replace">
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="attributes">
+            <attribute name="style">display: none</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="after">
+<!--            <br/>-->
+<!--            <br/>-->
+<!--            <div style="text-align: center;" class="sltech-pos-receipt-order-data">-->
+<!--                <t t-esc="receiptEnv.order.sltech_global_name"/>-->
+<!--            </div>-->
+            <t if="receipt.is_gcc_country">
+                <img t-if="receipt.qr_code" style="width: 90%;" id="qrcode" t-att-src="receipt.qr_code" class="pos-receipt-logo"/>
+                <br/>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-right-align')]" position="replace">
+        </xpath>
+
+    </t>
+
+    <!-- <t t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('header-row')]/div[hasclass('col')][1]" position="before">
+            <div class="col start wide">Global Sequence</div>
+        </xpath>
+        <xpath expr="//div[hasclass('order-row')]/div[hasclass('col')][1]" position="before">
+            <t t-debug="pdb"/>
+            <div class="col start">
+                <t t-esc="globalOrderNumber(order.name)"/>
+            </div>
+        </xpath>
+    </t> -->
+
+</templates>
