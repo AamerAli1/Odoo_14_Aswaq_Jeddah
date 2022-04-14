@@ -1,4 +1,4 @@
-odoo.define('custom_module.Screen', function (require) {
+odoo.define('pos_reciept.Screen', function (require) {
     "use strict";
 
     var PaymentScreen = require('point_of_sale.PaymentScreen')
@@ -45,6 +45,7 @@ odoo.define('custom_module.Screen', function (require) {
                     shadow: !options.to_invoice
                 })
                 .then(function (server_ids) {
+                    if (server_ids.length > 0)
                     self.get_order().sltech_global_name = server_ids[0].sltech_global_name;
                     _.each(order_ids_to_sync, function (order_id) {
                         self.db.remove_order(order_id);

@@ -2,7 +2,7 @@
     <data>
         <template id="assets_for_pos_product_bundle_pack" inherit_id="point_of_sale.assets">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/custom_module/static/src/js/Screen.js"/>
+                <script type="text/javascript" src="/pos_reciept/static/src/js/Screen.js"/>
 <!--                <link rel="stylesheet" href="/custom_module/static/src/css/custom.css"/>-->
             </xpath>
         </template>
