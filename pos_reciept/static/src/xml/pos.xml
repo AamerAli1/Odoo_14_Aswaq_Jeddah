@@ -217,13 +217,8 @@
 
 
         <xpath expr="//t[@t-foreach='receipt.paymentlines']" position="replace">
-            <span style = "text-align:center">----------------------------------------------------</span>
+            <span style = "text-align:center">----------------------</span>
          </xpath>
-
-
-        <xpath expr="//div[hasclass('pos-receipt-amount') and hasclass('receipt-change')]" position="attributes">
-            <attribute name="style">display: none</attribute>
-        </xpath>
 
 
         <xpath expr="//img[@id='qrcode']" position="replace">
@@ -249,17 +244,5 @@
         </xpath>
 
     </t>
-
-    <!-- <t t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('header-row')]/div[hasclass('col')][1]" position="before">
-            <div class="col start wide">Global Sequence</div>
-        </xpath>
-        <xpath expr="//div[hasclass('order-row')]/div[hasclass('col')][1]" position="before">
-            <t t-debug="pdb"/>
-            <div class="col start">
-                <t t-esc="globalOrderNumber(order.name)"/>
-            </div>
-        </xpath>
-    </t> -->
 
 </templates>
