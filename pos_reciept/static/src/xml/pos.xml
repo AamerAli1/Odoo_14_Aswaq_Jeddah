@@ -186,9 +186,10 @@
                     <div>Total Taxable (Excluding VAT)</div>
                     <div> الاجمالي الخاضع للضريبة</div>
                 </div>
-                <span t-esc="env.pos.format_currency(receipt.subtotal)" class="pos-receipt-right-align" style="margin-top:5px"/>
+                <span t-esc="env.pos.format_currency(receipt.total_with_tax - receipt.total_tax)" class="pos-receipt-right-align" style="margin-top:5px"/>
                 <br/>
             </div>
+            
             <t t-foreach="receipt.tax_details" t-as="tax" t-key="tax.name">
                 <div style="margin-top: 20px;margin-bottom: 20px;">
                      <div class="pos-receipt-left-align" style="float:left">
@@ -220,6 +221,10 @@
             <span style = "text-align:center">----------------------</span>
          </xpath>
 
+
+             <xpath expr="//t[@t-if='isTaxIncluded']" position="replace">
+
+             </xpath>
 
         <xpath expr="//img[@id='qrcode']" position="replace">
         </xpath>
