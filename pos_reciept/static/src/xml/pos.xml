@@ -141,43 +141,55 @@
             </div>
         </xpath>
 
-              <xpath expr="//div[hasclass('orderlines')]" position="replace">
+       <xpath expr="//div[hasclass('orderlines')]" position="replace">
+            <!-- Orderlines -->
             <div class="orderlines">
-                <table class='receipt-orderlines'>
-                    <colgroup>
-                        <col width='30%' />
-                        <col width='15%' />
-                        <col width='20%' />
-                        <col width='30%' />
-                    </colgroup>
-                    <tr style="border-bottom: 1px dashed black;border-top: 1px dashed black;">
-                        <th style='text-align:left'>Item <br/> الصنف </th>
-                        <th style='text-align:center'>Qty <br/> الكمية</th>
-                        <th style='text-align:center'>U.P <br/> سعر الوحدة</th>
-                        <th style='text-align:center'>P.VAT السعر <br/> مع الضريبة </th>
-                    </tr>
-                    <tr t-foreach="orderlines" t-as="orderline" t-key="orderline.id">
-                        <td>
-                            <t t-esc="orderline.get_product().display_name"/>
-                             <t t-if="orderline.get_discount() > 0">
-                                <div class="pos-disc-font">
-                                    With a <t t-esc="orderline.get_discount()"/>% discount
-                                </div>
-                            </t>
-                        </td>
-                        <td style='text-align:center'>
-                            <t t-esc="orderline.get_quantity()"/>
-                        </td>
-                        <td style='text-align:center'>
-                            <t t-esc="env.pos.format_currency_no_symbol(orderline.get_unit_display_price())"></t>
-                        </td >
-                        <td style='text-align:right'>
-                            <t t-esc="env.pos.format_currency_no_symbol(orderline.get_price_with_tax())"/>
-                        </td>
-                    </tr>
+                <table style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black">
+                                <div>Product Name</div>
+                                <div>اسم المنتج</div>
+                            </th>
+                            <th style="border: 1px solid black">
+                                <div>Qty</div>
+                                <div>الكمية</div>
+                            </th>
+                            <th style="border: 1px solid black">
+                                <div>U.P</div>
+                                <div>سعر الوحدة</div>
+                            </th>
+                            <th style="border: 1px solid black">
+                                <div>Total</div>
+                                <div>المجموع</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+
+                                <tr>
+                                    <td style="border: 1px solid black">
+                                        <div t-esc="line.product_name_wrapped[0]" />
+                                    </td>
+                                    <td style="border: 1px solid black">
+                                        <div t-esc="line.quantity"/>
+                                    </td>
+                                    <td style="border: 1px solid black">
+                                        <div t-esc="env.pos.format_currency_no_symbol(line.price)"/>
+                                    </td>
+                                    <td style="border: 1px solid black">
+                                        <div t-esc="env.pos.format_currency_no_symbol(line.price_display)" />
+                                    </td>
+                                </tr>
+
+                        </t>
+                    </tbody>
                 </table>
             </div>
         </xpath>
+
+
         <xpath expr="//t[@t-if='!isTaxIncluded']" position="replace">
             <div class="pos-receipt-right-align">--------</div>
             <br/>
