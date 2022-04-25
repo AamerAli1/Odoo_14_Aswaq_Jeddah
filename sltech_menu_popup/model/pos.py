@@ -35,8 +35,8 @@ class PartnerXlsxoiu7(models.AbstractModel):
         print(obj.to_date)
         line_index = 3
         if obj.from_date and obj.to_date:
-            cust_inv = [('date_order', '>', str(obj.from_date)),
-                         ('date_order', '<', str(obj.to_date))]
+            cust_inv = [('date_order', '>=', str(obj.from_date)),
+                         ('date_order', '<=', str(obj.to_date))]
             if obj.user_id:
                 cust_inv.append(('user_id', '=', obj.user_id.id))
             if obj.config_id:
@@ -80,7 +80,7 @@ class PartnerXlsxoiu7(models.AbstractModel):
                 worksheet.write('A%s' % line_index, (order.config_id.name or ''),format1)
                 worksheet.write('B%s' % line_index, (order.sltech_global_name or ''),format1)
                 worksheet.write('C%s' % line_index, (str(order.date_order) or ''),format1)
-                worksheet.write('D%s' % line_index, (order.employee_id.name or ''),format1)
+                worksheet.write('D%s' % line_index, (order.user_id.name or ''),format1)
                 worksheet.write('E%s' % line_index, (lines.full_product_name or ''),format1)
                 worksheet.write('F%s' % line_index, (lines.price_unit or '0'),format1)
                 worksheet.write('G%s' % line_index, (temp_tax_amt+lines.price_unit or '0'),format1)
