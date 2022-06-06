@@ -32,12 +32,7 @@
             <field name="model">pos.session</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_view_order']" position="attributes">
-                    <attribute name="groups">point_of_sale.group_pos_manager</attribute>
-                </xpath>
-                <xpath expr="//button[@name='action_show_payments_list']" position="attributes">
-                    <attribute name="groups">point_of_sale.group_pos_manager</attribute>
-                </xpath>
+
                 <xpath expr="//button[@name='action_stock_picking']" position="attributes">
                     <attribute name="groups">point_of_sale.group_pos_manager</attribute>
                 </xpath>
