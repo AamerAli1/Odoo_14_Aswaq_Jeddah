@@ -7,7 +7,7 @@ class SaleOrder(models.TransientModel):
 
     from_date = fields.Date(string='From Date')
     to_date = fields.Date(string='To Date')
-    user_id = fields.Many2one('hr.employee',string='Cashier')
+    user_id = fields.Many2one('res.users',string='Cashier')
     config_id = fields.Many2one('pos.config',string='POS Shop')
 
     def generate_report_xlsx(self):

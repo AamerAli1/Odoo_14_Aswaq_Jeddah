@@ -82,8 +82,8 @@ class PartnerXlsxoiu7(models.AbstractModel):
                 worksheet.write('C%s' % line_index, (str(order.date_order) or ''),format1)
                 worksheet.write('D%s' % line_index, (order.user_id.name or ''),format1)
                 worksheet.write('E%s' % line_index, (lines.full_product_name or ''),format1)
-                worksheet.write('F%s' % line_index, (lines.price_unit or '0'),format1)
-                worksheet.write('G%s' % line_index, (temp_tax_amt+lines.price_unit or '0'),format1)
+                worksheet.write('F%s' % line_index, (lines.price_subtotal or '0'),format1)
+                worksheet.write('G%s' % line_index, (lines.price_subtotal_incl or '0'),format1)
                 worksheet.write('H%s' % line_index, (lines.qty or '0'),format1)
                 worksheet.write('I%s' % line_index, (lines.price_subtotal_incl or '0'),format1)
                 line_index +=1
