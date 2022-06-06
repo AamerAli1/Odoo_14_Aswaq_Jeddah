@@ -1,6 +1,8 @@
 odoo.define('sltech_pos_user_restrict.pos', function (require) {
     "use strict";
 
+
+    
     var models = require('point_of_sale.models');
     var _super_order = models.Order.prototype;
 
