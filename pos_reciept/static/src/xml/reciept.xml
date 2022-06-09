@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_product_bundle_pack_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.ReceiptScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('buttons')]" position="replace">
+        <span>Contact admin to reprint</span>
+
+        </xpath>
+
+
+    </t>
+
+</templates>

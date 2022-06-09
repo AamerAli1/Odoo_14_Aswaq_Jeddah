@@ -11,6 +11,14 @@ odoo.define('sltech_pos_user_restrict.pos', function (require) {
             /* Generate the qr code for Saudi e-invoicing. Specs are available at the following link at page 23
             https://zatca.gov.sa/ar/E-Invoicing/SystemsDevelopers/Documents/20210528_ZATCA_Electronic_Invoice_Security_Features_Implementation_Standards_vShared.pdf
             */
+            var amount_total1 = amount_total;
+            var amount_tax1 = amount_tax;
+    
+            amount_total1 = amount_total1.toFixed(2);
+            amount_tax1 = amount_tax1.toFixed(2);
+    
+
+
             const seller_name_enc = this._compute_qr_code_field(1, name);
             const company_vat_enc = this._compute_qr_code_field(2, vat);
             //  ODOO THING 1 line
@@ -22,8 +30,8 @@ odoo.define('sltech_pos_user_restrict.pos', function (require) {
             const timestamp_enc = this._compute_qr_code_field(3, date);
             // END
 
-            const invoice_total_enc = this._compute_qr_code_field(4, amount_total.toString());
-            const total_vat_enc = this._compute_qr_code_field(5, amount_tax.toString());
+            const invoice_total_enc = this._compute_qr_code_field(4, amount_total1.toString());
+            const total_vat_enc = this._compute_qr_code_field(5, amount_tax1.toString());
 
             const str_to_encode = seller_name_enc.concat(company_vat_enc, timestamp_enc, invoice_total_enc, total_vat_enc);
 
